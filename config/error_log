@@ -1,0 +1,12 @@
+[10-May-2024 17:58:57 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/eitltdc1/test.mypropertree.co.uk/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/eitltdc1/test.mypropertree.co.uk/config/database.php on line 18
+[11-May-2024 07:23:47 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/eitltdc1/test.mypropertree.co.uk/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/eitltdc1/test.mypropertree.co.uk/config/database.php on line 18
+[19-Jun-2024 21:25:37 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/myprexnd/test.mypropertree.co.uk/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/myprexnd/test.mypropertree.co.uk/config/database.php on line 18

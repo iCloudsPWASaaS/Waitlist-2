@@ -1,0 +1,285 @@
+v1.0
+https://babia.to/resources/chaincity-a-complete-real-estate-investment-platform.35101/
+=====
+
+https://docs.google.com/document/d/1SS3389Zn9MqOMYuAD-A0ed8vsE7xzuWImJuKSWla9EA/edit
+
+https://miro.com/app/board/uXjVMx1mfmA=/
+pascal54321
+
+Justhost
+https://my.justhost.com
+eitltdc1// jkih/PF3gmtU8[kM
+
+
+sql -
+update `users` set `balance`=0.00, `interest_balance`=0.00,`total_interest_balance`=0.00,`total_invest`=0.00,`total_deposit`=0.00
+
+property card -
+FTP::uberletting\/test2.uberlettings.co.uk/resources/views/themes/original|property.blade.php
+FTP::uberletting\/test2.uberlettings.co.uk/resources/views/themes/original/user/property|allProperty.blade.php
+FTP::uberletting\/test2.uberlettings.co.uk/resources/views/themes/original/partials|propertyBox.blade.php -> excluded
+FTP::uberletting\/test2.uberlettings.co.uk/resources/views/themes/original/user/property|sellshareProperty.blade.php
+FTP::uberletting\/test2.uberlettings.co.uk/resources/views/themes/original/user/property|shareProperty.blade.php
+--------------------
+DB -
+configures->annual_investment_limit
+card_remain-> no use
+card_issued-> no use
+----------------
+investments->
+gateway_id	
+gateway_currency	
+charge
+rate	
+final_amount	
+btc_amount	
+btc_wallet	
+transaction	
+try	
+gateway_status
+
+was added but no use
+---------------------------------
+
+
+
+
+NB -
+investProperty -> has been excluded form invest button and addFundRequest -> has been added
+BasicService.php -> makeInvest -> $gate, $charge, $final_amo has been added
+
+
+imp link -
+https://iqcode.com/code/php/how-to-use-for-foreach-loop-in-carousel-in-laravel-blade
+https://themedemos.download/thememaster/janu-demo/
+
+
+
+temp sql -
+SELECT properties.name, property_units.unit_name, invoices.* FROM `invoices` INNER JOIN properties
+ON invoices.property_id = properties.id
+INNER JOIN property_units
+    ON invoices.property_unit_id = property_units.id;
+;
+
+
+
+UPDATE invoices AS i
+INNER JOIN tenants AS t ON i.tenant_id = t.id
+SET i.due_date = CONCAT(YEAR(now()),'-',MONTH(now()),'-', t.due_date)
+WHERE i.`month` LIKE 'December' AND i.`status` = 0
+
+
+
+imp links & code -
+https://stackoverflow.com/questions/48023059/how-to-stylize-radio-buttons-in-bootstrap
+https://codepen.io/heinhtetzan/pen/JjEBZmQ
+
+https://codepen.io/a7rarpress/pen/ExdvjBx
+<div class="row g-4 shop-section" style="padding: 0px;"> <!--extra-->
+    @foreach($myProperties as $key => $myProperty)
+    <div class="col-md-4 col-lg-4">
+        @include($theme.'partials.propertyBox2')
+    </div>
+    @endforeach
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {{ $myProperties->appends($_GET)->links() }}
+            </ul>
+        </nav>
+    </div>
+</div>
+
+------------------------
+<div class="modal fade" id="cartModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title investHeading" id="staticBackdropLabel"></h5>
+                <button type="button" class="close-btn close_invest_modal" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row g-3 investModalPaymentForm">
+                    <input type="hidden" id="myindex" value="">
+                    <input type="hidden" id="min" value="">
+                    <input type="hidden" id="max" value="">
+                    <div class="col-6">
+                        <label for="">@lang('Enter amount between '){{ config('basic.currency_symbol') }}<span id="min_label"></span>-{{ config('basic.currency_symbol') }}<span id="max_label"></span></label>
+                        <div class="input-group mt-1">
+                            <input type="text" class="invest-amount form-control" name="amount" id="amount" value="" onkeyup="this.value = this.value.replace (/^\.|[^\d\.]/g, '')" autocomplete="off">
+                            <button class="show-currency"></button>
+                        </div>
+                    </div>
+
+                    <!-- <div class="input-box col-12">
+                                <label for="">@lang('Quantity')</label>
+                                <div class="input-group">
+                                    <input type="text" class="invest-amount form-control" name="quantity" id="quantity" value="{{old('quantity') ? old('quantity') : 1 }}" onkeyup="this.value = this.value.replace (/^\.|[^\d\.]/g, '')" autocomplete="off" placeholder="@lang('Enter Quantity')">
+                                    <button class="show-currency"></button>
+                                </div>
+                    </div> -->
+
+                    <pre class="text-danger errors"></pre>
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer {{ \Auth::check() == true ? '' : 'd-block' }}">
+                <button type="button" class="btn-custom btn2 btn-secondary close_invest_modal close__btn" data-bs-dismiss="modal">@lang('Close')</button>
+                <button type="button" class="btn-custom" id="cartOkBtn">@lang('OK')</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+var cartModal = new bootstrap.Modal(document.getElementById('cartModal'))
+    $(document).on('click', '.enterAmount', function() {
+        cartModal.show();
+        $('#myindex').val($(this).attr("myindex"))
+        $('#min').val($(this).attr("min"))
+        $('#max').val($(this).attr("max"))
+        $('#min_label').html($(this).attr("min"))
+        $('#max_label').html($(this).attr("max"))
+    });
+
+    $('#cartOkBtn').on('click', function() {
+        if ($('#amount').val().length == 0) {
+            $('.errors').text("field should not be empty");
+            return false;
+        }
+
+        if ($('#amount').val() < $('#min').val()) {
+            $('.errors').text("Please enter amount betwwen range");
+            return false;
+        }
+
+        if ($('#amount').val() > $('#max').val()) {
+            $('.errors').text("Please enter amount betwwen range");
+            return false;
+        }
+
+
+        $('#item-in-cart-price-' + $('#myindex').val()).html($('#amount').val());
+        $('#item-in-cart-price2-' + $('#myindex').val()).html($('#amount').val());
+
+        //console.log($('#cost-total-hidden-1').attr('value'));
+        $('#cost-total-hidden-' + $('#myindex').val()).attr('value', $('#amount').val());
+
+        let count = $(".cost-total-hidden").length;
+        if (count > 0) {
+            let totalCost = $(".cost-total-hidden").toArray().map(el => el.value).reduce((x, y) => Number(x) + Number(y));
+            console.log(Number(Number(totalCost)).toFixed(2));
+
+            $(".cost-total").html(Number(Number(totalCost)).toFixed(2))
+            $("#cart-cost-total-hidden").val(Number(Number(totalCost)).toFixed(2))
+
+            console.log($("#cart-cost-total-hidden").val())
+        } else {
+            $(".cost-total").html("0.00")
+            $("#cart-cost-total-hidden").val("0.00")
+        }
+
+        cartModal.hide()
+        $('#amount').val('')
+    });
+
+----------------
+
+public function makeInvest($user, $property, $amount, $profit, $loss, $investStatus, $is_installment, $trx, $payment_status=1)
+    {
+        $returnTimeType = strtolower($property->managetime->time_type);
+        $func = $returnTimeType == 'days' ? 'addDays' : ($returnTimeType == 'months' ? 'addMonths' : 'addYears');
+        $returnTime     = $property->managetime->time;
+        $returnDate = Carbon::parse($property->expire_date)->$func($returnTime);
+
+        $func2 = strtolower($property->installment_duration_type) == 'days' ? 'addDays' : (strtolower($property->installment_duration_type) == 'months' ? 'addMonths' : 'addYears');
+        $nextInstallmentTimeStart = now()->$func2($property->installment_duration);
+        $nextInstallmentTimeEnd = $nextInstallmentTimeStart->copy()->$func2($property->installment_duration);
+
+
+        if ($property->total_installments && $investStatus == 0){
+            $dueInstallments = $property->total_installments - 1;
+            if ($dueInstallments == 0){
+                $investStatus = 1;
+            }
+        }else{
+            $dueInstallments = null;
+        }
+
+        $invest = new Investment();
+        $invest->user_id = $user->id;
+        $invest->property_id = $property->id;
+        $invest->amount = $amount;
+        $invest->profit = $property->profit;
+        $invest->profit_type = $property->profit_type;
+        $invest->net_profit = $profit;
+        $invest->loss = $property->loss;
+        $invest->loss_type = $property->loss_type;
+        $invest->net_loss = $loss;
+        $invest->is_return_type = $property->is_return_type;
+        $invest->return_time = $returnTime;
+        $invest->return_time_type = $returnTimeType;
+        $invest->return_date = ($dueInstallments != 0 && $dueInstallments != null ? null : $returnDate);
+        $invest->how_many_times = ($property->how_many_times == null ? null : $property->how_many_times);
+        $invest->last_return_date = null;
+        $invest->is_installment = ($is_installment == 1 ? $property->is_installment : 0);
+        $invest->total_installments = ($is_installment == 1 ? $property->total_installments : null);
+        $invest->due_installments = ($is_installment == 1 ? $property->total_installments - 1 : null);
+        $invest->next_installment_date_start = ($is_installment == 1 ? $nextInstallmentTimeStart : null);
+        $invest->next_installment_date_end = ($is_installment == 1 ? $nextInstallmentTimeEnd : null);
+        $invest->invest_status = $investStatus;
+        $invest->payment_status = $payment_status;
+        $invest->status = 0;
+        $invest->capital_back = $property->is_capital_back;
+        $invest->trx = $trx;
+        $invest->is_active = 0; //extra
+        $invest->save();
+
+        //extra
+        /* if ($amount > $property->available_funding){ 
+            $property->available_funding = $property->available_funding - $property->available_funding;
+            $property->save();
+        }else{
+            $property->available_funding = $property->available_funding - $amount;
+            $property->save();
+        } */
+
+        if (isset($property->card_remain) && $property->card_remain > 0){
+            $property->card_issued = $property->card_remain - 1;
+        }
+        $property->save();
+    }
+
+------------------
+@if($invest->property->fixed_amount > $invest->property->available_funding && $invest->property->available_funding > 0) 
+------------------------
+Added -
+user.payment.manualpay
+PackageController
+SaasSubscriptionController
+
+
+investProperty->depositConfirms(gatewayIpn)/fromSubmit->PaymentLogController(action)
+
+
+temp test -
+<li class="nav-item" role="presentation">
+                            <!-- <button
+                                class="nav-link btn-custom {{($type == 'investment-properties-3') ? 'active':''}}"
+                                id="pills-myproperty-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-myproperty" type="button" role="tab"
+                                aria-controls="pills-myproperty"
+                                aria-selected="false">@lang('Sold')</button> -->
+
+                                <a class="nav-link nav-pill-custom {{($type == 'sold-properties') ? 'active':''}}"  href="{{ route('user.propertyMarket', 'sold-properties') }}">@lang('Sold')</a>
+                        </li>
